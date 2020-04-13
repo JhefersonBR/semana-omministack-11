@@ -4,11 +4,15 @@ import { View, FlatList, Image, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import logoImg from '../../assets/logo.png'
 import styles from './styles';
+import darkStyles from './darkStyles';
+
 import api from '../../services/api';
+import HeaderMode from '../../components/HeaderMode/';
 
 export default function Incidents() {
     const nav = useNavigation();
 
+    const [styled, setStyled] = useState(styles);
     const [incidents, setIncidents] = useState([]);
     const [total, setTotal] = useState(0);
     const [page, setPage] = useState(1);
@@ -51,18 +55,20 @@ export default function Incidents() {
     }
 
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
+        <View style={styled.container}>
+        <HeaderMode text="DarkMode" arrStyles={[styles, darkStyles]} changeble={setStyled} />
+
+            <View style={styled.header}>
                 <Image source={logoImg} />
-                <Text style={styles.headerText}>
-                    Total de <Text style={styles.headerTextBolt}>{total} casos</Text>.
+                <Text style={styled.headerText}>
+                    Total de <Text style={styled.headerTextBolt}>{total} casos</Text>.
                 </Text>
             </View>
-            <Text style={styles.title}>Bem-vindo!</Text>
-            <Text style={styles.description}>Escolha um dos casos abaixo e salve o dia!</Text>
+            <Text style={styled.title}>Bem-vindo!</Text>
+            <Text style={styled.description}>Escolha um dos casos abaixo e salve o dia!</Text>
 
             <FlatList
-                style={styles.incidentList}
+                style={styled.incidentList}
                 data={incidents}
                 keyExtractor={incident => String(incident.id)}
                 showsVerticalScrollIndicator={false}
@@ -71,16 +77,16 @@ export default function Incidents() {
                 renderItem={({ item: incident }) => (
                     <View >
 
-                        <View style={styles.incident}>
+                        <View style={styled.incident}>
 
-                            <Text style={styles.incidentProperty}>ONG:</Text>
-                            <Text style={styles.incidentValue}>{incident.name}</Text>
+                            <Text style={styled.incidentProperty}>ONG:</Text>
+                            <Text style={styled.incidentValue}>{incident.name}</Text>
 
-                            <Text style={styles.incidentProperty}>CASO:</Text>
-                            <Text style={styles.incidentValue}>{incident.title}</Text>
+                            <Text style={styled.incidentProperty}>CASO:</Text>
+                            <Text style={styled.incidentValue}>{incident.title}</Text>
 
-                            <Text style={styles.incidentProperty}>VALOR:</Text>
-                            <Text style={styles.incidentValue}>
+                            <Text style={styled.incidentProperty}>VALOR:</Text>
+                            <Text style={styled.incidentValue}>
                                 {
                             
                                     Intl.NumberFormat('pt-BR', {style : 'currency',   currency:'BRL'})                           
@@ -89,10 +95,10 @@ export default function Incidents() {
                             </Text>
 
                             <TouchableOpacity
-                                style={styles.detailsButton}
+                                style={styled.detailsButton}
                                 onPress={()=>navigateToDatail(incident)}
                             >
-                                <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
+                                <Text style={styled.detailsButtonText}>Ver mais detalhes</Text>
                                 <Feather name="arrow-right" size={16} color='#E02041' />
                             </TouchableOpacity>
 
