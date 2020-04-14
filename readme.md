@@ -1,4 +1,4 @@
-![logo-be-the-hero](https://raw.githubusercontent.com/dhapolinario/be-the-hero/master/frontend/src/assets/logo-bethehero.png)
+![logo-be-the-hero](./logo-bethehero.png)
 
 # Semana OmniStack 11.0
 
